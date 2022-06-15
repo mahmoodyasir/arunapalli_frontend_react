@@ -6,27 +6,27 @@
             {
                 "title": "Home",
                 "icon": "bi-house-fill",
-                "path": "/"
+                "path": "/admin_homepage"
             },
             {
-                "title": "About",
+                "title": "All Member Account",
                 "icon": "bi-info-circle-fill",
                 "path": "/about"
             },
             {
-                "title": "Contact",
+                "title": "Payment",
                 "icon": "bi-phone-fill",
                 "childrens": [
                     {
-                        "title": "Facebook",
+                        "title": "Payment Status",
                         "icon": "bi-facebook"
                     },
                     {
-                        "title": "Twitter",
+                        "title": "Manual Payment",
                         "icon": "bi-twitter"
                     },
                     {
-                        "title": "Instagram",
+                        "title": "Payment Date",
                         "icon": "bi-instagram"
                     }
                 ]
@@ -42,15 +42,15 @@
         "icon": "bi-info-circle-fill",
         "childrens": [
             {
-                "title": "Login",
+                "title": "Create Admin Account",
                 "path": "/login"
             },
             {
-                "title": "Register",
+                "title": "Create User Account",
                 "path": "/register"
             },
             {
-                "title": "Forgot Password",
+                "title": "Assign to Membership",
                 "path": "/forgot-password"
             },
             {

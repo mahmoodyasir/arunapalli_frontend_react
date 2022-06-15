@@ -21,7 +21,7 @@ body{
 
 .content{
   flex-grow: 1;
-  padding-left: 12.5em;
+  padding-left: 18em;
   /*background-image: radial-gradient(rgba(0, 0, 0, .4), rgba(0, 0, 0, .8)), url('');*/
   background-size: cover;
   background-position: center;

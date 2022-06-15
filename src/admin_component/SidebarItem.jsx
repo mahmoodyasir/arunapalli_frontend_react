@@ -14,6 +14,7 @@ export default function SidebarItem({item}){
                         {item.title}
                     </span>
                     <i className="bi-chevron-down toggle-btn" onClick={() => setOpen(!open)}></i>
+                    {/*{window.localStorage.setItem("toggle_key", open)}*/}
                 </div>
                 <div className="sidebar-content">
                     { item.childrens.map((child, index) => <SidebarItem key={index} item={child} />) }

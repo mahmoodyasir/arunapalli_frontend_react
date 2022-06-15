@@ -12,6 +12,7 @@ import Axios from "axios";
 import AdminLogin from "./admin_component/AdminLogin";
 import Admin_Homepage from "./admin_component/Admin_Homepage";
 import Navbar from "./user_component/Navbar";
+import Admin_dashboard from "./admin_component/Dashboaard/admin_dashboard";
 
 const App = () => {
 
@@ -64,13 +65,11 @@ const App = () => {
                 {
                     admin_profile !== null ? (
                             <>
-
-                                <div className="main">
-                                    <Sidebar/>
+                                    {/*<Sidebar/>*/}
+                                    <Admin_dashboard/>
                                     <Switch>
                                         <Route exact path="/admin_homepage" component={Admin_Homepage}/>
                                     </Switch>
-                                </div>
                             </>
                         ) :
                         ("")
