@@ -13,10 +13,12 @@ import AdminLogin from "./admin_component/AdminLogin";
 import Admin_Homepage from "./admin_component/Admin_Homepage";
 import Navbar from "./user_component/Navbar";
 import Admin_dashboard from "./admin_component/Dashboaard/admin_dashboard";
+import {Admin_Logout} from "./admin_component/Admin_Logout";
+import AssignMember from "./admin_component/AssignMember";
 
 const App = () => {
 
-    const [{profile, page_reload, admin_profile}, dispatch] = useGlobalState()
+    const [{profile, page_reload, admin_profile, user_profile, status}, dispatch] = useGlobalState()
 
     useEffect(() => {
         if (userToken !== null) {
@@ -26,7 +28,7 @@ const App = () => {
                     url: `${domain}/api/member/`,
                     headers: header
                 }).then(response => {
-                    console.log(response.data["data"])
+                    // console.log(response.data["data"])
                     dispatch({
                         type: "ADD_PROFILE",
                         profile: response.data["data"]
@@ -46,7 +48,7 @@ const App = () => {
                     url: `${domain}/api/admin_profile/`,
                     headers: admin_header
                 }).then(response => {
-                    console.log(response.data["data"])
+                    // console.log(response.data["data"])
                     dispatch({
                         type: "ADMIN_PROFILE",
                         admin_profile: response.data["data"]
@@ -56,6 +58,45 @@ const App = () => {
             getadmindata()
         }
     }, [dispatch, page_reload]);
+
+    useEffect(() => {
+        const get_user_profile = async () => {
+            await Axios({
+                method: "get",
+                url: `${domain}/api/profileview/`,
+                headers: admin_header
+            }).then(response => {
+                // console.log(response.data)
+                dispatch({
+                    type: "USER_PROFILE",
+                    user_profile: response.data
+                })
+                // console.log(user_profile)
+            })
+        }
+        get_user_profile()
+    }, [dispatch, user_profile]);
+
+
+    useEffect(() => {
+        const get_status = async ()=>{
+            await Axios({
+                method: "get",
+                url: `${domain}/api/statusview`,
+                headers: admin_header
+            }).then(response => {
+                dispatch({
+                    type: "STATUS",
+                    status: response.data
+
+                })
+                // console.log("Status", status)
+            })
+        }
+        get_status()
+    }, [dispatch, status]);
+
+
 
 
     return (
@@ -69,6 +110,8 @@ const App = () => {
                                     <Admin_dashboard/>
                                     <Switch>
                                         <Route exact path="/admin_homepage" component={Admin_Homepage}/>
+                                        <Route exact path="/admin_logout" component={Admin_Logout}/>
+                                        <Route exact path="/assign_member" component={AssignMember}/>
                                     </Switch>
                             </>
                         ) :

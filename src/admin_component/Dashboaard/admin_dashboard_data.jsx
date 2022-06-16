@@ -58,6 +58,11 @@ export const SidebarData = [
                 path: '/order_page/incomplete_order',
                 icon: <IoIcons.IoIosPaper/>
             },
+            {
+                title: 'Assign to Member',
+                path: '/assign_member',
+                icon: <IoIcons.IoIosPaper/>
+            },
 
         ]
     },

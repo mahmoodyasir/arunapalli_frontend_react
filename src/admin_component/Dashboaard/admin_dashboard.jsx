@@ -49,7 +49,7 @@ const SidebarWrap = styled.div`
 
 const Admin_dashboard = () => {
     const [{ page_reload }, dispatch] = useGlobalState();
-    const [sidebar, setSidebar] = useState(false);
+    const [sidebar, setSidebar] = useState(true);
     const [profile, setProfile] = useState(null);
 
     const showSidebar = () => setSidebar(!sidebar)
@@ -63,7 +63,7 @@ const Admin_dashboard = () => {
                         url: `${domain}/api/admin_profile/`,
                         headers: admin_header
                     }).then(response => {
-                        console.log(response.data['data']['0'])
+                        // console.log(response.data['data']['0'])
                         setProfile(response.data["data"]['0'])
                         // console.log(response.data)
                         // dispatch({

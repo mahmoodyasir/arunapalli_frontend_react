@@ -2,6 +2,8 @@ export const initialstate = {
     profile:null,
     page_reload: null,
     admin_profile: null,
+    user_profile: null,
+    status: null,
 }
 
 const reducer = (state, action) => {
@@ -20,6 +22,16 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 admin_profile: action.admin_profile
+            }
+        case "USER_PROFILE":
+            return {
+                ...state,
+                user_profile: action.user_profile
+            }
+        case "STATUS":
+            return {
+                ...state,
+                status: action.status
             }
 
         default:
