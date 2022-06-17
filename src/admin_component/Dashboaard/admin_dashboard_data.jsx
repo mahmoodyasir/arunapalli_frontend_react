@@ -67,6 +67,31 @@ export const SidebarData = [
         ]
     },
     {
+        title: 'Plot Control',
+        path: '#',
+        icon: <AiIcons.AiFillPlusCircle/>,
+        iconClosed: <RiIcons.RiArrowDownSFill/>,
+        iconOpened: <RiIcons.RiArrowUpSFill/>,
+        subNav: [
+            {
+                title: 'Add Plot Position',
+                path: '/add_plot_position',
+                icon: <AiIcons.AiOutlineAppstoreAdd/>
+            },
+            {
+                title: 'Assign Plot',
+                path: '/',
+                icon: <IoIcons.IoIosPaper/>
+            },
+            {
+                title: 'Plot History',
+                path: '/',
+                icon: <IoIcons.IoIosPaper/>
+            },
+
+        ]
+    },
+    {
         title: 'Logout',
         path: '/admin_logout',
         icon: <IoIcons.IoMdHelpCircle/>

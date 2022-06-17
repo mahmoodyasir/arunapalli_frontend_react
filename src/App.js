@@ -15,10 +15,11 @@ import Navbar from "./user_component/Navbar";
 import Admin_dashboard from "./admin_component/Dashboaard/admin_dashboard";
 import {Admin_Logout} from "./admin_component/Admin_Logout";
 import AssignMember from "./admin_component/AssignMember";
+import Add_Plot_Position from "./admin_component/Add_Plot_Position";
 
 const App = () => {
 
-    const [{profile, page_reload, admin_profile, user_profile, status}, dispatch] = useGlobalState()
+    const [{profile, page_reload, admin_profile, user_profile, status, plot_position, all_plot_road}, dispatch] = useGlobalState()
 
     useEffect(() => {
         if (userToken !== null) {
@@ -71,11 +72,11 @@ const App = () => {
                     type: "USER_PROFILE",
                     user_profile: response.data
                 })
-                // console.log(user_profile)
+                console.log(user_profile)
             })
         }
         get_user_profile()
-    }, [dispatch, user_profile]);
+    }, [dispatch, page_reload]);
 
 
     useEffect(() => {
@@ -90,12 +91,45 @@ const App = () => {
                     status: response.data
 
                 })
-                // console.log("Status", status)
+                console.log("Status", status)
             })
         }
         get_status()
-    }, [dispatch, status]);
+    }, [dispatch, page_reload]);
 
+
+    useEffect(() => {
+        const plot_position = async () => {
+            await Axios({
+                method: "get",
+                url: `${domain}/api/plotpositionview/`,
+                headers: admin_header
+            }).then(response => {
+                dispatch({
+                    type: "PLOT_POSITION",
+                    plot_position: response.data
+                })
+            })
+        }
+        plot_position()
+    }, [dispatch, page_reload]);
+
+
+    useEffect(() => {
+        const all_plot_road = async () => {
+            await Axios({
+                method: "get",
+                url: `${domain}/api/roadplotview/`,
+                headers: admin_header
+            }).then(response => {
+                dispatch({
+                    type: "ALL_PLOT_ROAD",
+                    all_plot_road: response.data
+                })
+            })
+        }
+        all_plot_road()
+    }, [dispatch, page_reload]);
 
 
 
@@ -112,6 +146,7 @@ const App = () => {
                                         <Route exact path="/admin_homepage" component={Admin_Homepage}/>
                                         <Route exact path="/admin_logout" component={Admin_Logout}/>
                                         <Route exact path="/assign_member" component={AssignMember}/>
+                                        <Route exact path="/add_plot_position" component={Add_Plot_Position}/>
                                     </Switch>
                             </>
                         ) :

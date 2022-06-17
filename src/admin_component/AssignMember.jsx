@@ -25,6 +25,7 @@ const AssignMember = () => {
         formdata.append("member_phone", phone);
         formdata.append("member_status", member_status);
         formdata.append("onetime_payment", onetime_payment);
+        console.log(member_status)
 
         await Axios({
             method: "post",

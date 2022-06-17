@@ -4,6 +4,8 @@ export const initialstate = {
     admin_profile: null,
     user_profile: null,
     status: null,
+    plot_position: null,
+    all_plot_road: null,
 }
 
 const reducer = (state, action) => {
@@ -32,6 +34,16 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 status: action.status
+            }
+        case "PLOT_POSITION":
+            return {
+                ...state,
+                plot_position: action.plot_position
+            }
+        case "ALL_PLOT_ROAD":
+            return {
+                ...state,
+                all_plot_road: action.all_plot_road
             }
 
         default:
