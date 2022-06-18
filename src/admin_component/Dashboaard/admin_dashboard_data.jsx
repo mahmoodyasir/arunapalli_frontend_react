@@ -3,6 +3,7 @@ import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import * as IoIcons from 'react-icons/io';
 import * as RiIcons from 'react-icons/ri';
+import * as MdIcons from 'react-icons/md';
 import {useGlobalState} from "../../state/provider";
 
 export const SidebarData = [
@@ -55,7 +56,7 @@ export const SidebarData = [
             },
             {
                 title: 'Create User Account',
-                path: '/order_page/incomplete_order',
+                path: '/register_user',
                 icon: <IoIcons.IoIosPaper/>
             },
             {
@@ -80,8 +81,8 @@ export const SidebarData = [
             },
             {
                 title: 'Assign Plot',
-                path: '/',
-                icon: <IoIcons.IoIosPaper/>
+                path: '/assign_plot_owner',
+                icon: <MdIcons.MdOutlineAssignmentTurnedIn/>
             },
             {
                 title: 'Plot History',

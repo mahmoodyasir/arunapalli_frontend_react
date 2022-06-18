@@ -7,7 +7,15 @@
     overflow: scroll;
 }
 
+/*table .sticky th {*/
+/*    position: sticky;*/
+/*    top: 0;*/
+/*}*/
 
+/*table tbody {*/
+/*    height: 600px;*/
+/*    overflow: scroll;*/
+/*}*/
 
 /*.table-responsive {*/
 /*    height: 200px;*/

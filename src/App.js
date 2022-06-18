@@ -16,10 +16,11 @@ import Admin_dashboard from "./admin_component/Dashboaard/admin_dashboard";
 import {Admin_Logout} from "./admin_component/Admin_Logout";
 import AssignMember from "./admin_component/AssignMember";
 import Add_Plot_Position from "./admin_component/Add_Plot_Position";
+import Assign_Plot_Owner from "./admin_component/Assign_Plot_Owner";
 
 const App = () => {
 
-    const [{profile, page_reload, admin_profile, user_profile, status, plot_position, all_plot_road}, dispatch] = useGlobalState()
+    const [{profile, page_reload, admin_profile, user_profile, status, plot_position, all_plot_road, all_member, all_owner}, dispatch] = useGlobalState()
 
     useEffect(() => {
         if (userToken !== null) {
@@ -29,7 +30,7 @@ const App = () => {
                     url: `${domain}/api/member/`,
                     headers: header
                 }).then(response => {
-                    // console.log(response.data["data"])
+                    // console.log("Member Data $$$$$$$", response.data)
                     dispatch({
                         type: "ADD_PROFILE",
                         profile: response.data["data"]
@@ -129,8 +130,46 @@ const App = () => {
             })
         }
         all_plot_road()
-    }, [dispatch, page_reload]);
+    }, [dispatch, admin_profile]);
 
+    useEffect(() => {
+        if (adminToken !== null)
+        {
+            const get_all_member = async () => {
+                await Axios({
+                    method: "get",
+                    url: `${domain}/api/all_member_view/`,
+                    headers: admin_header
+                }).then(response => {
+                    dispatch({
+                        type: "ALL_MEMBER",
+                        all_member: response.data
+                    })
+                })
+            }
+            get_all_member()
+        }
+    }, [dispatch, admin_profile]);
+
+
+    useEffect(() => {
+        if (adminToken !== null)
+        {
+            const get_all_owner = async () => {
+                await Axios({
+                    method: "get",
+                    url: `${domain}/api/all_owner_view/`,
+                    headers: admin_header
+                }).then(response => {
+                    dispatch({
+                        type: "ALL_OWNER",
+                        all_owner: response.data
+                    })
+                })
+            }
+            get_all_owner()
+        }
+    }, [dispatch, admin_profile]);
 
 
     return (
@@ -147,6 +186,8 @@ const App = () => {
                                         <Route exact path="/admin_logout" component={Admin_Logout}/>
                                         <Route exact path="/assign_member" component={AssignMember}/>
                                         <Route exact path="/add_plot_position" component={Add_Plot_Position}/>
+                                        <Route exact path="/assign_plot_owner" component={Assign_Plot_Owner}/>
+                                        <Route exact path="/register_user" component={Register_User}/>
                                     </Switch>
                             </>
                         ) :

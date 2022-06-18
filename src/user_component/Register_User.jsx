@@ -2,8 +2,11 @@ import React, {useState} from "react";
 import Axios from "axios";
 import {domain} from "../env";
 import {useHistory} from "react-router-dom";
+import {useGlobalState} from "../state/provider";
 
 const Register_User = () => {
+
+    const [{page_reload}, dispatch] = useGlobalState()
 
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
@@ -11,12 +14,9 @@ const Register_User = () => {
     const history = useHistory()
 
     const registernewuser = async () => {
-        if (password !== confirmpassword)
-        {
+        if (password !== confirmpassword) {
             alert("Password not matched !! Try Again .... ")
-        }
-        else
-        {
+        } else {
             await Axios({
                 method: "post",
                 url: `${domain}/api/register/`,
@@ -27,7 +27,11 @@ const Register_User = () => {
             }).then(response => {
                 // console.log(response.data)
                 alert(response.data['message'])
-                history.push("/")
+                dispatch({
+                    type: "PAGE_RELOAD",
+                    page_reload: response.data
+                })
+
             })
         }
     }
@@ -36,18 +40,21 @@ const Register_User = () => {
         <div className="container">
             <h1 className="display-6">Registration</h1>
             <div className="form-group">
-                <label>Username</label>
-                <input onChange={(e) => setUsername(e.target.value)} type="text" className="form-control" placeholder="Username"/>
+                <label>Email</label>
+                <input onChange={(e) => setUsername(e.target.value)} type="text" className="form-control"
+                       placeholder="Email"/>
             </div>
 
             <div className="form-group">
                 <label>Password</label>
-                <input onChange={(e) => setPassword(e.target.value)} type="password" className="form-control" placeholder="Password"/>
+                <input onChange={(e) => setPassword(e.target.value)} type="password" className="form-control"
+                       placeholder="Password"/>
             </div>
 
             <div className="form-group">
                 <label>Confirm Password</label>
-                <input onChange={(e) => setConfirmpassword(e.target.value)} type="password" className="form-control" placeholder="Confirm Password"/>
+                <input onChange={(e) => setConfirmpassword(e.target.value)} type="password" className="form-control"
+                       placeholder="Confirm Password"/>
             </div>
 
             <button onClick={registernewuser} className="btn btn-info my-2">Register</button>

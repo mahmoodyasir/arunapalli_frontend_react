@@ -118,17 +118,23 @@ const Add_Plot_Position = () => {
 
                             <tbody>
                             {
-                                all_plot_road['plot']?.map((item, i) => (
-                                    <tr key={i}>
-                                        <td>{i + 1}</td>
-                                        <td>{item?.title}</td>
-                                        <td>{item?.date}</td>
 
-                                        <td>
-                                            <button className="btn btn-primary">Delete</button>
-                                        </td>
-                                    </tr>
-                                ))
+                                all_plot_road !== null ?
+                                    (
+                                        all_plot_road['plot']?.map((item, i) => (
+                                            <tr key={i}>
+                                                <td>{i + 1}</td>
+                                                <td>{item?.title}</td>
+                                                <td>{item?.date}</td>
+
+                                                <td>
+                                                    <button className="btn btn-primary">Delete</button>
+                                                </td>
+                                            </tr>
+                                        ))
+                                    ) :
+                                    ("")
+
                             }
 
                             </tbody>
@@ -153,17 +159,21 @@ const Add_Plot_Position = () => {
 
                             <tbody>
                             {
-                                all_plot_road['road']?.map((item, i) => (
-                                    <tr key={i}>
-                                        <td>{i + 1}</td>
-                                        <td>{item?.title}</td>
-                                        <td>{item?.date}</td>
+                                all_plot_road !== null ?
+                                    (
+                                        all_plot_road['road']?.map((item, i) => (
+                                            <tr key={i}>
+                                                <td>{i + 1}</td>
+                                                <td>{item?.title}</td>
+                                                <td>{item?.date}</td>
 
-                                        <td>
-                                            <button className="btn btn-primary">Delete</button>
-                                        </td>
-                                    </tr>
-                                ))
+                                                <td>
+                                                    <button className="btn btn-primary">Delete</button>
+                                                </td>
+                                            </tr>
+                                        ))
+                                    ) :
+                                    ("")
                             }
 
                             </tbody>
@@ -186,9 +196,14 @@ const Add_Plot_Position = () => {
                                 value={plot_no}>
 
                             {
-                                all_plot_road['plot']?.map((item, index) => {
-                                    return <option value={item.title} key={index}>{item.title} </option>
-                                })
+                                all_plot_road !== null ?
+                                    (
+                                        all_plot_road['plot']?.map((item, index) => {
+                                            return <option value={item.title} key={index}>{item.title} </option>
+                                        })
+                                    ) :
+                                    ("")
+
                             }
 
                         </select>
@@ -200,9 +215,13 @@ const Add_Plot_Position = () => {
                                 value={road_no}>
 
                             {
-                                all_plot_road['road']?.map((item, index) => {
-                                    return <option value={item.title} key={index}>{item.title} </option>
-                                })
+                                all_plot_road !== null ?
+                                    (
+                                        all_plot_road['road']?.map((item, index) => {
+                                            return <option value={item.title} key={index}>{item.title} </option>
+                                        })
+                                    ) :
+                                    ("")
                             }
 
                         </select>
@@ -215,8 +234,9 @@ const Add_Plot_Position = () => {
                 <div className="col-md-4">
                     <h4>Create Plot Position</h4>
                     <div className="form-group my-2">
-                        <label >Enter Plot Number:</label>
-                        <input onChange={(e) => setNew_plot(e.target.value)} type="text" className="form-control" placeholder="Write Plot Number"/>
+                        <label>Enter Plot Number:</label>
+                        <input onChange={(e) => setNew_plot(e.target.value)} type="text" className="form-control"
+                               placeholder="Write Plot Number"/>
                     </div>
 
                     <button onClick={new_plot_add} className="btn btn-success">Submit</button>
@@ -227,8 +247,9 @@ const Add_Plot_Position = () => {
                 <div className="col-md-4">
                     <h4>Create Road Position</h4>
                     <div className="form-group my-2">
-                        <label >Enter Road Number:</label>
-                        <input onChange={(e) => setNew_road(e.target.value)} type="text" className="form-control" placeholder="Write Road Number"/>
+                        <label>Enter Road Number:</label>
+                        <input onChange={(e) => setNew_road(e.target.value)} type="text" className="form-control"
+                               placeholder="Write Road Number"/>
                     </div>
 
                     <button onClick={new_road_add} className="btn btn-success">Submit</button>

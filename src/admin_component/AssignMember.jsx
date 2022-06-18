@@ -1,10 +1,13 @@
 import React, {useEffect, useState} from "react";
+import { useHistory } from 'react-router'
 import {useGlobalState} from "../state/provider";
 import './CSS/common.css'
 import Axios from "axios";
 import {admin_header, domain} from "../env";
 
 const AssignMember = () => {
+    // const history = useHistory()
+    // history.go(0)
     const [{user_profile, status, page_reload}, dispatch] = useGlobalState()
 
 
@@ -23,7 +26,6 @@ const AssignMember = () => {
         formdata.append("member_lastname", lastname);
         formdata.append("member_nid", nid);
         formdata.append("member_phone", phone);
-        formdata.append("member_status", member_status);
         formdata.append("onetime_payment", onetime_payment);
         console.log(member_status)
 
@@ -80,17 +82,6 @@ const AssignMember = () => {
                 <label>Member Phone:</label>
                 <input onChange={e => setPhone(e.target.value)} type="text" className="form-control"
                        placeholder="Write Member's Phone No"/>
-            </div>
-
-            <div className="form-group my-3">
-                <label>Member Status:</label>
-                <select onChange={e => setMember_status(e.target.value)} className="form-control" value={member_status}>
-                    {
-                        status?.map((item, index) => {
-                            return <option value={item?.id} key={index}>{item?.title}</option>
-                        })
-                    }
-                </select>
             </div>
 
             <div className="form-check my-3">
