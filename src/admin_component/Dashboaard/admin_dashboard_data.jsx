@@ -26,17 +26,17 @@ export const SidebarData = [
         subNav: [
             {
                 title: 'Payment Status',
-                path: '/admin_action/add_category',
-                icon: <IoIcons.IoIosPaper/>
+                path: '/Payment_status',
+                icon: <MdIcons.MdOutlinePayment/>
             },
             {
                 title: 'Manual Payment',
-                path: '/admin_action/add_product',
+                path: '/manual_payment',
                 icon: <IoIcons.IoIosPaper/>
             },
             {
                 title: 'Select Payment Date',
-                path: '/admin_action/add_product',
+                path: '/payment_date_fix',
                 icon: <IoIcons.IoIosPaper/>
             }
         ]

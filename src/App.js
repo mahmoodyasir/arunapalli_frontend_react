@@ -17,10 +17,24 @@ import {Admin_Logout} from "./admin_component/Admin_Logout";
 import AssignMember from "./admin_component/AssignMember";
 import Add_Plot_Position from "./admin_component/Add_Plot_Position";
 import Assign_Plot_Owner from "./admin_component/Assign_Plot_Owner";
+import Manual_Payment from "./admin_component/Manual_Payment";
+import PaymentDate from "./admin_component/PaymentDate";
+import Payment_Status from "./admin_component/Payment_Status";
 
 const App = () => {
 
-    const [{profile, page_reload, admin_profile, user_profile, status, plot_position, all_plot_road, all_member, all_owner}, dispatch] = useGlobalState()
+    const [{
+        profile,
+        page_reload,
+        admin_profile,
+        user_profile,
+        status,
+        plot_position,
+        all_plot_road,
+        all_member,
+        all_owner,
+        fix_date
+    }, dispatch] = useGlobalState()
 
     useEffect(() => {
         if (userToken !== null) {
@@ -81,7 +95,7 @@ const App = () => {
 
 
     useEffect(() => {
-        const get_status = async ()=>{
+        const get_status = async () => {
             await Axios({
                 method: "get",
                 url: `${domain}/api/statusview`,
@@ -133,8 +147,7 @@ const App = () => {
     }, [dispatch, admin_profile]);
 
     useEffect(() => {
-        if (adminToken !== null)
-        {
+        if (adminToken !== null) {
             const get_all_member = async () => {
                 await Axios({
                     method: "get",
@@ -153,8 +166,7 @@ const App = () => {
 
 
     useEffect(() => {
-        if (adminToken !== null)
-        {
+        if (adminToken !== null) {
             const get_all_owner = async () => {
                 await Axios({
                     method: "get",
@@ -171,6 +183,24 @@ const App = () => {
         }
     }, [dispatch, admin_profile]);
 
+    useEffect(() => {
+        if (adminToken !== null) {
+            const handle_date_function = async () => {
+                await Axios({
+                    method: "get",
+                    url: `${domain}/api/date_handle/`,
+                    headers: admin_header
+                }).then(response => {
+                    dispatch({
+                        type: "DATE",
+                        fix_date: response.data
+                    })
+                })
+            }
+            handle_date_function()
+        }
+    }, [dispatch, admin_profile]);
+
 
     return (
         <BrowserRouter>
@@ -179,16 +209,19 @@ const App = () => {
                 {
                     admin_profile !== null ? (
                             <>
-                                    {/*<Sidebar/>*/}
-                                    <Admin_dashboard/>
-                                    <Switch>
-                                        <Route exact path="/admin_homepage" component={Admin_Homepage}/>
-                                        <Route exact path="/admin_logout" component={Admin_Logout}/>
-                                        <Route exact path="/assign_member" component={AssignMember}/>
-                                        <Route exact path="/add_plot_position" component={Add_Plot_Position}/>
-                                        <Route exact path="/assign_plot_owner" component={Assign_Plot_Owner}/>
-                                        <Route exact path="/register_user" component={Register_User}/>
-                                    </Switch>
+                                {/*<Sidebar/>*/}
+                                <Admin_dashboard/>
+                                <Switch>
+                                    <Route exact path="/admin_homepage" component={Admin_Homepage}/>
+                                    <Route exact path="/admin_logout" component={Admin_Logout}/>
+                                    <Route exact path="/assign_member" component={AssignMember}/>
+                                    <Route exact path="/add_plot_position" component={Add_Plot_Position}/>
+                                    <Route exact path="/assign_plot_owner" component={Assign_Plot_Owner}/>
+                                    <Route exact path="/register_user" component={Register_User}/>
+                                    <Route exact path="/manual_payment" component={Manual_Payment}/>
+                                    <Route exact path="/payment_date_fix" component={PaymentDate}/>
+                                    <Route exact path="/Payment_status" component={Payment_Status}/>
+                                </Switch>
                             </>
                         ) :
                         ("")

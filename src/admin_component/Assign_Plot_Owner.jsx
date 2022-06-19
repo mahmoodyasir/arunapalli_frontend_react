@@ -13,14 +13,14 @@ const Assign_Plot_Owner = () => {
 
     const [email, setEmail] = useState(null);
     const [plot_no, setPlot_no] = useState(null);
-    const [road_no, setRoad_no] = useState(null);
+    // const [road_no, setRoad_no] = useState(null);
     const [mem_status, setMem_status] = useState(null);
 
     const add_plot_owner = async () => {
         const formdata = new FormData()
         formdata.append("owner_email", email);
         formdata.append("plot_no", plot_no);
-        formdata.append("road_no", road_no);
+        // formdata.append("road_no", road_no);
         formdata.append("member_status", mem_status);
 
         await Axios({
@@ -73,23 +73,23 @@ const Assign_Plot_Owner = () => {
                         </select>
                     </div>
 
-                    <div className="form-group my-2">
-                        <label>Select Road No:</label>
-                        <select onChange={e => setRoad_no(e.target.value)} className="form-control"
-                                value={road_no}>
+                    {/*<div className="form-group my-2">*/}
+                    {/*    <label>Select Road No:</label>*/}
+                    {/*    <select onChange={e => setRoad_no(e.target.value)} className="form-control"*/}
+                    {/*            value={road_no}>*/}
 
-                            {
-                                all_plot_road !== null ?
-                                    (
-                                        all_plot_road['road']?.map((item, index) => {
-                                            return <option value={item.title} key={index}>{item.title} </option>
-                                        })
-                                    ) :
-                                    ("")
-                            }
+                    {/*        {*/}
+                    {/*            all_plot_road !== null ?*/}
+                    {/*                (*/}
+                    {/*                    all_plot_road['road']?.map((item, index) => {*/}
+                    {/*                        return <option value={item.title} key={index}>{item.title} </option>*/}
+                    {/*                    })*/}
+                    {/*                ) :*/}
+                    {/*                ("")*/}
+                    {/*        }*/}
 
-                        </select>
-                    </div>
+                    {/*    </select>*/}
+                    {/*</div>*/}
 
                     <div className="form-group my-2">
                         <label>Select Status:</label>
