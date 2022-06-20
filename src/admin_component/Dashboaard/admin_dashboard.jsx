@@ -93,7 +93,7 @@ const Admin_dashboard = () => {
 
                     <div className="mb-4">
                         <img src={`${domain}${profile?.profile_info?.image}`} className="rounded-circle account-image h_control mx-5" />
-                        <Link className="nav-link" to="/profile" target="_blank"><button className="btn link-hover text-white btn-info">Email: {profile?.admin_email?.email}</button></Link>
+                        <Link className="nav-link" to="/admin_profile"><button className="btn link-hover text-white btn-info">Email: {profile?.admin_email?.email}</button></Link>
                     </div>
 
                    {SidebarData.map((item, index) => {

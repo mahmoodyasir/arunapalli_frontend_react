@@ -1,4 +1,5 @@
 import './App.css';
+import './user_component/home.css'
 import '../src/admin_component/sidebarstyle.css'
 import {useGlobalState} from "./state/provider";
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
@@ -20,6 +21,8 @@ import Assign_Plot_Owner from "./admin_component/Assign_Plot_Owner";
 import Manual_Payment from "./admin_component/Manual_Payment";
 import PaymentDate from "./admin_component/PaymentDate";
 import Payment_Status from "./admin_component/Payment_Status";
+import ProfilePage from "./common_component/ProfilePage";
+import User_Payment_Status from "./user_component/User_Payment_Status";
 
 const App = () => {
 
@@ -47,7 +50,7 @@ const App = () => {
                     // console.log("Member Data $$$$$$$", response.data)
                     dispatch({
                         type: "ADD_PROFILE",
-                        profile: response.data["data"]
+                        profile: response.data["data"][0]
                     })
                 })
             }
@@ -67,7 +70,7 @@ const App = () => {
                     // console.log(response.data["data"])
                     dispatch({
                         type: "ADMIN_PROFILE",
-                        admin_profile: response.data["data"]
+                        admin_profile: response.data["data"][0]
                     })
                 })
             }
@@ -76,74 +79,85 @@ const App = () => {
     }, [dispatch, page_reload]);
 
     useEffect(() => {
-        const get_user_profile = async () => {
-            await Axios({
-                method: "get",
-                url: `${domain}/api/profileview/`,
-                headers: admin_header
-            }).then(response => {
-                // console.log(response.data)
-                dispatch({
-                    type: "USER_PROFILE",
-                    user_profile: response.data
+        if (adminToken !== null) {
+            const get_user_profile = async () => {
+                await Axios({
+                    method: "get",
+                    url: `${domain}/api/profileview/`,
+                    headers: admin_header
+                }).then(response => {
+                    // console.log(response.data)
+                    dispatch({
+                        type: "USER_PROFILE",
+                        user_profile: response.data
+                    })
+                    console.log(user_profile)
                 })
-                console.log(user_profile)
-            })
+            }
+            get_user_profile()
         }
-        get_user_profile()
+
     }, [dispatch, page_reload]);
 
 
     useEffect(() => {
-        const get_status = async () => {
-            await Axios({
-                method: "get",
-                url: `${domain}/api/statusview`,
-                headers: admin_header
-            }).then(response => {
-                dispatch({
-                    type: "STATUS",
-                    status: response.data
+        if (adminToken !== null) {
+            const get_status = async () => {
+                await Axios({
+                    method: "get",
+                    url: `${domain}/api/statusview`,
+                    headers: admin_header
+                }).then(response => {
+                    dispatch({
+                        type: "STATUS",
+                        status: response.data
 
+                    })
+                    console.log("Status", status)
                 })
-                console.log("Status", status)
-            })
+            }
+            get_status()
         }
-        get_status()
+
     }, [dispatch, page_reload]);
 
 
     useEffect(() => {
-        const plot_position = async () => {
-            await Axios({
-                method: "get",
-                url: `${domain}/api/plotpositionview/`,
-                headers: admin_header
-            }).then(response => {
-                dispatch({
-                    type: "PLOT_POSITION",
-                    plot_position: response.data
+        if (adminToken !== null) {
+            const plot_position = async () => {
+                await Axios({
+                    method: "get",
+                    url: `${domain}/api/plotpositionview/`,
+                    headers: admin_header
+                }).then(response => {
+                    dispatch({
+                        type: "PLOT_POSITION",
+                        plot_position: response.data
+                    })
                 })
-            })
+            }
+            plot_position()
         }
-        plot_position()
     }, [dispatch, page_reload]);
 
 
     useEffect(() => {
-        const all_plot_road = async () => {
-            await Axios({
-                method: "get",
-                url: `${domain}/api/roadplotview/`,
-                headers: admin_header
-            }).then(response => {
-                dispatch({
-                    type: "ALL_PLOT_ROAD",
-                    all_plot_road: response.data
+        if (adminToken !== null) {
+            const all_plot_road = async () => {
+                await Axios({
+                    method: "get",
+                    url: `${domain}/api/roadplotview/`,
+                    headers: admin_header
+                }).then(response => {
+                    dispatch({
+                        type: "ALL_PLOT_ROAD",
+                        all_plot_road: response.data
+                    })
                 })
-            })
+            }
+            all_plot_road()
         }
-        all_plot_road()
+
     }, [dispatch, admin_profile]);
 
     useEffect(() => {
@@ -221,6 +235,7 @@ const App = () => {
                                     <Route exact path="/manual_payment" component={Manual_Payment}/>
                                     <Route exact path="/payment_date_fix" component={PaymentDate}/>
                                     <Route exact path="/Payment_status" component={Payment_Status}/>
+                                    <Route exact path="/admin_profile" component={ProfilePage}/>
                                 </Switch>
                             </>
                         ) :
@@ -232,6 +247,8 @@ const App = () => {
                                 <Navbar/>
                                 <Switch>
                                     <Route exact path="/user_home" component={User_Home}/>
+                                    <Route exact path="/profile" component={ProfilePage}/>
+                                    <Route exact path="/user_payment_status" component={User_Payment_Status}/>
                                 </Switch>
                             </>
                         ) :

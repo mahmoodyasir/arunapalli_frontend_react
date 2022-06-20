@@ -3,12 +3,20 @@
     margin-top: 5rem;
 }
 
+
 .right-side {
     width: 25rem;
     margin-left: 45rem;
     margin-top: -35rem;
 
 }
+
+.account-image{
+  height: 125px;
+  width: 125px;
+  margin: 20px;
+}
+
 
 @media screen and (max-width: 1200px){
     .right-side{

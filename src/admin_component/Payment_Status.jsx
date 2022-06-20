@@ -2,7 +2,7 @@ import React from "react";
 
 const Payment_Status = () => {
     return (
-        <div className="container">
+        <div className="index container">
             <h1>Payment Status</h1>
         </div>
     )

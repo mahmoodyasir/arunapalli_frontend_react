@@ -57,8 +57,8 @@ const Navbar = () => {
                                 (
                                     <>
                                         <Link className="nav-link items text-white" to="/user_home">Home</Link>
-                                        <Link className="nav-link items text-white" to="/cart">Profile</Link>
-                                        <Link className="nav-link items text-white" to="/profile">Payment Status</Link>
+                                        <Link className="nav-link items text-white" to="/profile">Profile</Link>
+                                        <Link className="nav-link items text-white" to="/user_payment_status">Payment Status</Link>
                                         <Link onClick={logout} className="nav-link items text-white" to="">Logout</Link>
                                     </>
                                 )
