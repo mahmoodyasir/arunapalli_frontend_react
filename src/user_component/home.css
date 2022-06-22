@@ -3,6 +3,34 @@
     margin-top: 5rem;
 }
 
+.card-width {
+    width: 18rem;
+}
+
+.control-card {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.single_product{
+  align-items: center;
+}
+
+.table-font {
+    font-size: 18px;
+}
+
+.row2 {
+   display: flex;
+   flex-wrap: wrap;
+}
+
+.row2 > div[class*='col-'] {
+  display: flex;
+}
+
+
 
 .right-side {
     width: 25rem;

@@ -185,7 +185,7 @@ const App = () => {
                 await Axios({
                     method: "get",
                     url: `${domain}/api/all_owner_view/`,
-                    headers: admin_header
+
                 }).then(response => {
                     dispatch({
                         type: "ALL_OWNER",

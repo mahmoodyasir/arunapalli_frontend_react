@@ -30,7 +30,7 @@ const Assign_Plot_Owner = () => {
             data: formdata
         }).then(response => {
             dispatch({
-                type: "PAGE_RELOAD",
+                type: "ADMIN_PROFILE",
                 admin_profile: response.data
             })
         })
