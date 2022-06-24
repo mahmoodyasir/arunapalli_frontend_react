@@ -23,6 +23,7 @@ import PaymentDate from "./admin_component/PaymentDate";
 import Payment_Status from "./admin_component/Payment_Status";
 import ProfilePage from "./common_component/ProfilePage";
 import User_Payment_Status from "./user_component/User_Payment_Status";
+import Online_Payment from "./user_component/Online_Payment";
 
 const App = () => {
 
@@ -249,6 +250,7 @@ const App = () => {
                                     <Route exact path="/user_home" component={User_Home}/>
                                     <Route exact path="/profile" component={ProfilePage}/>
                                     <Route exact path="/user_payment_status" component={User_Payment_Status}/>
+                                    <Route exact path="/online_payment" component={Online_Payment}/>
                                 </Switch>
                             </>
                         ) :

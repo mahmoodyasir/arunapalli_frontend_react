@@ -10,6 +10,7 @@ const User_Payment_Status = () => {
 
     const [payment_info, setPayment_info] = useState(null);
     const [specific, setSpecific] = useState(null);
+    const [online, setOnline] = useState(null);
 
     useEffect(() => {
         const get_data = async () => {
@@ -25,15 +26,23 @@ const User_Payment_Status = () => {
     }, []);
 
     const specific_payment_info = async (id) => {
-            await Axios({
-                method: "get",
-                url: `${domain}/api/user_payment_info/${id}/`,
-                headers: header
-            }).then(response => {
-                console.log(response.data[0])
+        await Axios({
+            method: "get",
+            url: `${domain}/api/user_payment_info/${id}/`,
+            headers: header
+        }).then(response => {
+            console.log(response.data[0])
+
+            if (response.data[0]["payment_type"] !== "online") {
+                setOnline(null)
                 setSpecific(response.data[0])
-            })
-        }
+            } else {
+                setSpecific(null)
+                setOnline(response.data[0])
+            }
+
+        })
+    }
 
 
     return (
@@ -85,7 +94,7 @@ const User_Payment_Status = () => {
                                             <td>{item?.date}</td>
                                             <td>
                                                 <button onClick={() => specific_payment_info(item?.id)}
-                                                    className="btn btn-info">Details
+                                                        className="btn btn-info">Details
                                                 </button>
                                             </td>
                                         </tr>
@@ -128,6 +137,49 @@ const User_Payment_Status = () => {
                                                 <td>{specific?.member_email?.paid_amount} BDT</td>
                                                 <td>{specific?.member_email?.start_date}</td>
                                                 <td>{specific?.member_email?.end_date}</td>
+                                            </>
+                                        }
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </>
+                        :
+                        <></>
+                    }
+
+                    {/*ONLINE PAYMENT*/}
+
+                    {online !== null ?
+                        <>
+                            <div className="card text-black bg-white mb-4 mt-2">
+                                <h1 className="beside display-6 mt-4">MORE DETAILS</h1>
+                                <table className="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Member Status</th>
+                                        <th>Transaction ID</th>
+                                        <th>Medium</th>
+                                        <th>Plot No</th>
+                                        <th>Road No</th>
+                                        <th>Paid Amount</th>
+                                        <th>First Date</th>
+                                        <th>Last Date</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        {
+                                            <>
+                                                <td>{online?.member_status}</td>
+                                                <td>{online?.online_email?.transaction_id}</td>
+                                                <td>{online?.online_email?.medium}</td>
+                                                <td>{online?.online_email?.plot_no}</td>
+                                                <td>{online?.online_email?.road_no}</td>
+                                                <td>{online?.online_email?.paid_amount} BDT</td>
+                                                <td>{online?.online_email?.start_date}</td>
+                                                <td>{online?.online_email?.end_date}</td>
                                             </>
                                         }
                                     </tr>
