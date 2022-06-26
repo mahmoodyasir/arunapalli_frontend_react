@@ -69,30 +69,29 @@ const Manual_Payment = () => {
     }
 
     const option_work = async (id) => {
-        if (isNaN(id)) {
-            // console.log(email)
-            // console.log(id)
-            if (plot_toogle === true) {
-                setPlot_toogle(true)
-            } else {
-                setPlot_toogle(true)
-            }
-            const formdata = new FormData()
-            formdata.append("owner_email", email);
-            formdata.append("plot_id", id);
-
-            await Axios({
-                method: "post",
-                url: `${domain}/api/get_plot_owner/`,
-                headers: admin_header,
-                data: formdata
-            }).then(response => {
-                console.log(response.data)
-                setRoad_no(response.data[0]["road_no"])
-                setMember_status(response.data[0]["member_status"]["title"])
-                setPayment_amount(response.data[0]["member_status"]["payment_range"])
-            })
+        console.log(id)
+        // console.log(email)
+        // console.log(id)
+        if (plot_toogle === true) {
+            setPlot_toogle(true)
+        } else {
+            setPlot_toogle(true)
         }
+        const formdata = new FormData()
+        formdata.append("owner_email", email);
+        formdata.append("plot_id", id);
+
+        await Axios({
+            method: "post",
+            url: `${domain}/api/get_plot_owner/`,
+            headers: admin_header,
+            data: formdata
+        }).then(response => {
+            console.log(response.data)
+            setRoad_no(response.data[0]["road_no"])
+            setMember_status(response.data[0]["member_status"]["title"])
+            setPayment_amount(response.data[0]["member_status"]["payment_range"])
+        })
     }
 
     const pay_fee = async () => {
@@ -130,6 +129,7 @@ const Manual_Payment = () => {
                     <div className="form-group my-3">
                         <label>Select an Email:</label>
                         <select onChange={e => setEmail(e.target.value)} className="form-control" value={email}>
+                            <option>Select .......</option>
                             {
 
                                 all_member !== null ?

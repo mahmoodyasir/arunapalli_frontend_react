@@ -83,7 +83,7 @@ const PaymentDate = () => {
 
                 <div className="col-md-6">
                     <div className="scrollable">
-                        <table className="table table-bordered text-center">
+                        <table className="table table-bordered table-striped text-center">
                             <thead className="head-position">
                             <tr>
                                 <th>SN</th>

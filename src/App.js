@@ -24,6 +24,8 @@ import Payment_Status from "./admin_component/Payment_Status";
 import ProfilePage from "./common_component/ProfilePage";
 import User_Payment_Status from "./user_component/User_Payment_Status";
 import Online_Payment from "./user_component/Online_Payment";
+import OwnershipHistory from "./admin_component/Dashboaard/OwnershipHistory";
+import RegisterAdmin from "./admin_component/RegisterAdmin";
 
 const App = () => {
 
@@ -237,6 +239,8 @@ const App = () => {
                                     <Route exact path="/payment_date_fix" component={PaymentDate}/>
                                     <Route exact path="/Payment_status" component={Payment_Status}/>
                                     <Route exact path="/admin_profile" component={ProfilePage}/>
+                                    <Route exact path="/owner_history" component={OwnershipHistory}/>
+                                    <Route exact path="/register_admin" component={RegisterAdmin}/>
                                 </Switch>
                             </>
                         ) :

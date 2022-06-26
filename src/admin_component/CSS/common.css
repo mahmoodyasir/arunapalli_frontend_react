@@ -12,6 +12,15 @@
     overflow: scroll;
 }
 
+.payment_status_scroll {
+    height: 300px;
+    overflow: scroll;
+}
+
+.img-data{
+    width: 50%;
+}
+
 .scrollable .head-position {
 
 }

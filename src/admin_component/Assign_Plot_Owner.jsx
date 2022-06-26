@@ -1,7 +1,8 @@
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import {useGlobalState} from "../state/provider";
 import Axios from "axios";
 import {admin_header, domain} from "../env";
+import Dialog from "./Dialog";
 
 const Assign_Plot_Owner = () => {
 
@@ -15,6 +16,59 @@ const Assign_Plot_Owner = () => {
     const [plot_no, setPlot_no] = useState(null);
     // const [road_no, setRoad_no] = useState(null);
     const [mem_status, setMem_status] = useState(null);
+
+    const [dialog, setDialog] = useState({
+        message: "",
+        isLoading: false,
+        //Update
+        nameUser: "",
+        middleButton: false,
+        button1: "",
+        button2: "",
+        button3: ""
+    });
+
+    const idUserRef = useRef();
+
+    const handleDialog = (message, isLoading, nameUser, middleButton, button1, button2, button3) => {
+        setDialog({
+            message,
+            isLoading,
+            //Update
+            nameUser,
+            middleButton,
+            button1,
+            button2,
+            button3
+        });
+    };
+
+    const handleDelete = (id, name) => {
+
+        handleDialog("Are you sure you want to delete?", true, name, false,
+            "Yes", "", "No");
+        idUserRef.current = id;
+    };
+
+    const areUSureDelete = (choose) => {
+        if (choose === "button1") {
+            console.log("Only Owner", idUserRef.current)
+            Axios({
+                method: "post",
+                url: `${domain}/api/owner_delete/${idUserRef.current}/${choose}/`,
+                headers: admin_header
+            }).then(response => {
+                console.log(response.data)
+                dispatch({
+                    type: "PAGE_RELOAD",
+                    page_reload: response.data
+                })
+            })
+            handleDialog("", false);
+        } else {
+            handleDialog("", false);
+        }
+    };
 
     const add_plot_owner = async () => {
         const formdata = new FormData()
@@ -36,6 +90,7 @@ const Assign_Plot_Owner = () => {
         })
     }
 
+
     return (
         <div className="container">
             <div className="row">
@@ -44,6 +99,7 @@ const Assign_Plot_Owner = () => {
                     <div className="form-group my-3">
                         <label>Owner Email:</label>
                         <select onChange={e => setEmail(e.target.value)} className="form-control" value={email}>
+                            <option>Select .......</option>
 
                             {
                                 all_member?.map((item, index) => {
@@ -58,6 +114,7 @@ const Assign_Plot_Owner = () => {
                         <label>Select Plot No:</label>
                         <select onChange={e => setPlot_no(e.target.value)} className="form-control"
                                 value={plot_no}>
+                            <option>Choose .......</option>
 
                             {
                                 all_plot_road !== null ?
@@ -95,6 +152,7 @@ const Assign_Plot_Owner = () => {
                         <label>Select Status:</label>
                         <select onChange={e => setMem_status(e.target.value)} className="form-control"
                                 value={mem_status}>
+                            <option>Choose .......</option>
 
                             {
                                 status?.map((item, index) => {
@@ -138,7 +196,7 @@ const Assign_Plot_Owner = () => {
                                         {/*    <Link to={`/admin_action/add_product/product_details/${item.id}`} target="_blank" className="btn btn-info">Details</Link>*/}
                                         {/*</td>*/}
                                         <td>
-                                            <button className="btn btn-primary">Details</button>
+                                            <button onClick={() => handleDelete(item?.id, item?.owner_email?.email)} className="btn btn-outline-danger">Delete</button>
                                         </td>
                                     </tr>
                                 ))
@@ -151,6 +209,20 @@ const Assign_Plot_Owner = () => {
                 </div>
 
             </div>
+
+            {dialog.isLoading && (
+                <Dialog
+                    //Update
+                    nameUser={dialog.nameUser}
+                    onDialog={areUSureDelete}
+                    message={dialog.message}
+                    middleButton={dialog.middleButton}
+                    button1={dialog.button1}
+                    button2={dialog.button2}
+                    button3={dialog.button3}
+                />
+            )}
+
         </div>
     )
 }

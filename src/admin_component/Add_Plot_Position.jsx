@@ -12,6 +12,7 @@ const Add_Plot_Position = () => {
 
     const [new_plot, setNew_plot] = useState(null);
     const [new_road, setNew_road] = useState(null);
+    // console.log(plot_position)
 
     const plot_with_road = async () => {
         const formdata = new FormData()
@@ -59,6 +60,52 @@ const Add_Plot_Position = () => {
         })
     }
 
+    const delete_plot_position = async (id) => {
+        await Axios({
+            method: "post",
+            url: `${domain}/api/plotpositiondelete/${id}/`,
+            headers: admin_header
+        }).then(response => {
+            console.log(response.data["message"])
+            alert(response.data["message"])
+            dispatch({
+                type: "PAGE_RELOAD",
+                page_reload: response.data
+            })
+        })
+    }
+
+    const delete_plot = async (id) => {
+        await Axios({
+            method: "post",
+            url: `${domain}/api/plotdelete/${id}/`,
+            headers: admin_header
+        }).then(response => {
+            console.log(response.data["message"])
+            alert(response.data["message"])
+            dispatch({
+                type: "PAGE_RELOAD",
+                page_reload: response.data
+            })
+        })
+    }
+
+
+    const delete_road = async (id) => {
+        await Axios({
+            method: "post",
+            url: `${domain}/api/roaddelete/${id}/`,
+            headers: admin_header
+        }).then(response => {
+            console.log(response.data["message"])
+            alert(response.data["message"])
+            dispatch({
+                type: "PAGE_RELOAD",
+                page_reload: response.data
+            })
+        })
+    }
+
     // console.log(all_plot_road['plot'])
     // console.log(all_plot_road['road'])
     return (
@@ -83,15 +130,15 @@ const Add_Plot_Position = () => {
                                 plot_position?.map((item, i) => (
                                     <tr key={i}>
                                         <td>{i + 1}</td>
-                                        <td>{item.plot_no}</td>
-                                        <td>{item.road_no}</td>
-                                        <td>{item.date}</td>
+                                        <td>{item?.plot_no}</td>
+                                        <td>{item?.road_no}</td>
+                                        <td>{item?.date}</td>
 
                                         {/*<td>*/}
                                         {/*    <Link to={`/admin_action/add_product/product_details/${item.id}`} target="_blank" className="btn btn-info">Details</Link>*/}
                                         {/*</td>*/}
                                         <td>
-                                            <button className="btn btn-primary">Delete</button>
+                                            <button onClick={() => delete_plot_position(item?.id)} className="btn btn-primary">Delete</button>
                                         </td>
                                     </tr>
                                 ))
@@ -128,7 +175,7 @@ const Add_Plot_Position = () => {
                                                 <td>{item?.date}</td>
 
                                                 <td>
-                                                    <button className="btn btn-primary">Delete</button>
+                                                    <button onClick={() => delete_plot(item?.id)} className="btn btn-primary">Delete</button>
                                                 </td>
                                             </tr>
                                         ))
@@ -168,7 +215,7 @@ const Add_Plot_Position = () => {
                                                 <td>{item?.date}</td>
 
                                                 <td>
-                                                    <button className="btn btn-primary">Delete</button>
+                                                    <button onClick={() => delete_road(item?.id)} className="btn btn-primary">Delete</button>
                                                 </td>
                                             </tr>
                                         ))

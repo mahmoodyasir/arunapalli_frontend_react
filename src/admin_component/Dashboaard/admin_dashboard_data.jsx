@@ -51,7 +51,7 @@ export const SidebarData = [
         subNav: [
             {
                 title: 'Create Admin Account',
-                path: '/order_page/all_order',
+                path: '/register_admin',
                 icon: <FaIcons.FaUserPlus/>
             },
             {
@@ -86,7 +86,7 @@ export const SidebarData = [
             },
             {
                 title: 'Plot History',
-                path: '/',
+                path: '/owner_history',
                 icon: <IoIcons.IoIosPaper/>
             },
 
