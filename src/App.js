@@ -39,7 +39,8 @@ const App = () => {
         all_plot_road,
         all_member,
         all_owner,
-        fix_date
+        fix_date,
+        all_table
     }, dispatch] = useGlobalState()
 
     useEffect(() => {
@@ -80,6 +81,26 @@ const App = () => {
             getadmindata()
         }
     }, [dispatch, page_reload]);
+
+    useEffect(() => {
+        if (adminToken !== null)
+        {
+            const get_count_number = async () => {
+                await Axios({
+                    method: "get",
+                    url: `${domain}/api/table_count/`,
+                    headers: admin_header
+                }).then(response => {
+                    dispatch({
+                        type: "ALL_TABLE",
+                        all_table: response.data
+                    })
+                })
+            }
+            get_count_number()
+        }
+    }, [dispatch, page_reload]);
+
 
     useEffect(() => {
         if (adminToken !== null) {

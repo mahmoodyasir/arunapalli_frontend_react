@@ -5,6 +5,7 @@ import './CSS/common.css'
 import Axios from "axios";
 import {admin_header, domain} from "../env";
 import Dialog from "./Dialog";
+import MemberDetails from "./MemberDetails";
 
 const AssignMember = () => {
     // const history = useHistory()
@@ -30,7 +31,13 @@ const AssignMember = () => {
         button3: ""
     });
 
+    const [member_details, setMember_details] = useState({
+        isLoading: false,
+        id: ""
+    });
+
     const idUserRef = useRef();
+    const idMemberRef = useRef();
 
     const handleDialog = (message, isLoading, nameUser, middleButton, button1, button2, button3) => {
         setDialog({
@@ -45,11 +52,25 @@ const AssignMember = () => {
         });
     };
 
+
+    const handleDetails = (isLoading, id) => {
+        setMember_details({
+            isLoading,
+            id
+        });
+    };
+
     const handleDelete = (id, name) => {
 
         handleDialog("Are you sure you want to delete?", true, name, true,
             "Delete Member", "Delete with User", "Cancel");
         idUserRef.current = id;
+    };
+
+    const handleMember = (id) => {
+
+        handleDetails(true, id)
+        idMemberRef.current = id;
     };
 
     const areUSureDelete = (choose) => {
@@ -87,6 +108,18 @@ const AssignMember = () => {
     };
 
 
+    const areUSureDetails = (choose) => {
+        if (choose === "button") {
+            console.log("Details", idMemberRef.current)
+            handleDetails(false, "")
+        }
+        else
+        {
+            handleDetails(false, "")
+        }
+    };
+
+
     const member_create = async () => {
         const formdata = new FormData()
         formdata.append("email", email);
@@ -118,7 +151,7 @@ const AssignMember = () => {
             <div className="row">
 
 
-                <div className="col-md-4">
+                <div className="col-md-3">
                     <h1 className="display-6 my-3">Membership Assignment</h1>
 
                     <div className="form-group my-3">
@@ -172,7 +205,7 @@ const AssignMember = () => {
                 </div>
 
 
-                <div className="col-md-8">
+                <div className="col-md-9">
                     <h1 className="display-6 beside my-3">Members</h1>
                     <div className="col-md-12 card text-black bg-white scrollable">
                         <table className="table table-striped">
@@ -200,9 +233,12 @@ const AssignMember = () => {
                                             <td>{item?.member_nid}</td>
                                             <td>{item?.member_phone}</td>
                                             <td>{item?.onetime_payment !== true ? "False" : "True"}</td>
-                                            <td>
+                                            <td className="beside">
+                                                <button onClick={() => handleMember(item?.id)}
+                                                    className="btn btn-outline-primary">Details</button>
+
                                                 <button onClick={() => handleDelete(item?.id, item?.email)}
-                                                        className="btn btn-outline-danger">Delete
+                                                        className="btn btn-outline-danger mx-2">Delete
                                                 </button>
                                             </td>
                                         </tr>
@@ -229,6 +265,14 @@ const AssignMember = () => {
                     button1={dialog.button1}
                     button2={dialog.button2}
                     button3={dialog.button3}
+                />
+            )}
+
+            {member_details.isLoading && (
+                <MemberDetails
+                    //Update
+                    onDialog={areUSureDetails}
+                    id={member_details.id}
                 />
             )}
 

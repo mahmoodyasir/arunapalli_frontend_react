@@ -8,7 +8,8 @@ export const initialstate = {
     all_plot_road: null,
     all_member: null,
     all_owner: null,
-    fix_date: null
+    fix_date: null,
+    all_table: null
 }
 
 const reducer = (state, action) => {
@@ -63,6 +64,12 @@ const reducer = (state, action) => {
                 ...state,
                 fix_date: action.fix_date
             }
+        case "ALL_TABLE":
+            return {
+                ...state,
+                all_table: action.all_table
+            }
+
 
         default:
             return this.state;

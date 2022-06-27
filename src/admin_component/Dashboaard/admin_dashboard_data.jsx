@@ -13,11 +13,6 @@ export const SidebarData = [
         icon: <AiIcons.AiFillHome/>
     },
     {
-        title: 'All Member Account',
-        path: '/',
-        icon: <AiIcons.AiFillHome/>
-    },
-    {
         title: 'Payment',
         path: '#',
         icon: <AiIcons.AiFillTool/>,

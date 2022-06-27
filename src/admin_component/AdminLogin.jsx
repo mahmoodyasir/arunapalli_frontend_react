@@ -29,8 +29,8 @@ const AdminLogin = () => {
 
 
     return (
-        <div className="content col-md-10 login_center">
-            <h1 className="display-6 beside mb-5 fw-bold">Anurapalli Housing</h1>
+        <div className="container col-md-6 login_center">
+            <h1 className="display-6 beside mb-5 fw-bold">Arunapalli Housing</h1>
             <div className="card bg-light">
                 <div className="row g-0">
                     <div className="col-md-4">
