@@ -3,6 +3,7 @@ import {useGlobalState} from "../state/provider";
 import Axios from "axios";
 import {admin_header, domain} from "../env";
 import Dialog from "./Dialog";
+import Plot_Status_Update from "./Plot_Status_Update";
 
 const Assign_Plot_Owner = () => {
 
@@ -28,7 +29,20 @@ const Assign_Plot_Owner = () => {
         button3: ""
     });
 
+    const [details_edit, setDetails_edit] = useState({
+        isLoading: false,
+        id: "",
+        plot_id: "",
+        status_id: "",
+        email: ""
+    });
+
     const idUserRef = useRef();
+
+    const idPlotRef = useRef();
+    const idStatusRef = useRef();
+    const idMainRef = useRef();
+    const idEmailRef = useRef();
 
     const handleDialog = (message, isLoading, nameUser, middleButton, button1, button2, button3) => {
         setDialog({
@@ -43,11 +57,30 @@ const Assign_Plot_Owner = () => {
         });
     };
 
+    const handleDetails_edit = (isLoading, id, plot_id, status_id, email) => {
+        setDetails_edit({
+            isLoading,
+            id,
+            plot_id,
+            status_id,
+            email
+        });
+    };
+
+
     const handleDelete = (id, name) => {
 
         handleDialog("Are you sure you want to delete?", true, name, false,
             "Yes", "", "No");
         idUserRef.current = id;
+    };
+
+    const handlePlotStatusUpdate = (id, plot_id, status_id, email) => {
+        handleDetails_edit(true, id, plot_id, status_id, email)
+        idMainRef.current = id
+        idPlotRef.current = plot_id
+        idStatusRef.current = status_id
+        idEmailRef.current = email
     };
 
     const areUSureDelete = (choose) => {
@@ -67,6 +100,49 @@ const Assign_Plot_Owner = () => {
             handleDialog("", false);
         } else {
             handleDialog("", false);
+        }
+    };
+
+    const areUSureUpdate = (choose, rsv_plot, rsv_status, rsv_delete) => {
+        if (choose === "button") {
+
+            console.log("Received ID", idMainRef.current)
+            console.log("Plot", rsv_plot)
+            console.log("Member Status", rsv_status)
+            console.log("Record delete", rsv_delete)
+
+            const formdata = new FormData()
+            formdata.append("id", idMainRef.current);
+            formdata.append("plot_no", rsv_plot);
+            formdata.append("status_no", rsv_status);
+            formdata.append("bool_delete", rsv_delete);
+
+            Axios({
+                method: "post",
+                url: `${domain}/api/owner_update/`,
+                headers: admin_header,
+                data: formdata
+            }).then(response => {
+                console.log(response.data)
+                dispatch({
+                    type: "ADMIN_PROFILE",
+                    admin_profile: response.data
+                })
+                if (response.data["message"] === "all_null") {
+                    alert("Plot and Status both is Empty !!")
+                } else if (response.data["message"] === "plot_null") {
+                    alert("Plot Cannot be Empty When 'Delete Record' is Selected !!")
+                } else if (response.data["message"] === "status_null") {
+                    alert("Status Cannot be Empty When 'Delete Record' is Selected !!")
+                } else if (response.data["message"] === "delete_record") {
+                    alert("Payment Information Found. Must choose 'Delete Record' !!")
+                }
+            })
+
+
+            handleDetails_edit(false, "", "", "", "")
+        } else {
+            handleDetails_edit(false, "", "", "", "")
         }
     };
 
@@ -195,8 +271,14 @@ const Assign_Plot_Owner = () => {
                                         {/*<td>*/}
                                         {/*    <Link to={`/admin_action/add_product/product_details/${item.id}`} target="_blank" className="btn btn-info">Details</Link>*/}
                                         {/*</td>*/}
-                                        <td>
-                                            <button onClick={() => handleDelete(item?.id, item?.owner_email?.email)} className="btn btn-outline-danger">Delete</button>
+                                        <td className="beside">
+                                            <button
+                                                onClick={() => handlePlotStatusUpdate(item?.id, item?.plot_no, item?.member_status?.title, item?.owner_email?.email)}
+                                                className="btn btn-outline-primary">Edit
+                                            </button>
+                                            <button onClick={() => handleDelete(item?.id, item?.owner_email?.email)}
+                                                    className="btn btn-outline-danger">Delete
+                                            </button>
                                         </td>
                                     </tr>
                                 ))
@@ -220,6 +302,16 @@ const Assign_Plot_Owner = () => {
                     button1={dialog.button1}
                     button2={dialog.button2}
                     button3={dialog.button3}
+                />
+            )}
+
+            {details_edit.isLoading && (
+                <Plot_Status_Update
+                    onDialog={areUSureUpdate}
+                    id={details_edit.id}
+                    plot_id={details_edit.plot_id}
+                    status_id={details_edit.status_id}
+                    email={details_edit.email}
                 />
             )}
 

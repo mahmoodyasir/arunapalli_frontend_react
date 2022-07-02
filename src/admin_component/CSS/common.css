@@ -24,6 +24,18 @@
 .scrollable .head-position {
 
 }
+
+.card-heading {
+    color: #f1f1f1;
+    background-color: darkviolet;
+    border-radius: 5px;
+    padding: 2px;
+}
+
+.center-div {
+    margin: auto;
+}
+
 /*table .sticky th {*/
 /*    position: sticky;*/
 /*    top: 0;*/
