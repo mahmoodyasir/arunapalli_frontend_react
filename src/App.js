@@ -26,6 +26,7 @@ import User_Payment_Status from "./user_component/User_Payment_Status";
 import Online_Payment from "./user_component/Online_Payment";
 import OwnershipHistory from "./admin_component/Dashboaard/OwnershipHistory";
 import RegisterAdmin from "./admin_component/RegisterAdmin";
+import Member_Status from "./admin_component/Member_Status";
 
 const App = () => {
 
@@ -115,7 +116,7 @@ const App = () => {
                         type: "USER_PROFILE",
                         user_profile: response.data
                     })
-                    console.log(user_profile)
+                    // console.log(user_profile)
                 })
             }
             get_user_profile()
@@ -137,7 +138,7 @@ const App = () => {
                         status: response.data
 
                     })
-                    console.log("Status", status)
+                    // console.log("Status", status)
                 })
             }
             get_status()
@@ -262,6 +263,7 @@ const App = () => {
                                     <Route exact path="/admin_profile" component={ProfilePage}/>
                                     <Route exact path="/owner_history" component={OwnershipHistory}/>
                                     <Route exact path="/register_admin" component={RegisterAdmin}/>
+                                    <Route exact path="/member_status" component={Member_Status}/>
                                 </Switch>
                             </>
                         ) :

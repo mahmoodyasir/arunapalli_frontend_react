@@ -88,6 +88,11 @@ export const SidebarData = [
         ]
     },
     {
+        title: 'Member Status Control',
+        path: '/member_status',
+        icon: <IoIcons.IoMdHelpCircle/>
+    },
+    {
         title: 'Logout',
         path: '/admin_logout',
         icon: <IoIcons.IoMdHelpCircle/>
