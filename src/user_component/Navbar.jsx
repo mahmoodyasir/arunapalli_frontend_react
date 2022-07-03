@@ -43,7 +43,7 @@ const Navbar = () => {
     return (
         <div>
             <div className="head">
-                <Link className="navbar-brand head_font" to="/user_home">Arunapalli Housing</Link>
+                <Link className="navbar-brand head_font" to="/user_home">Plot Management</Link>
             </div>
 
 

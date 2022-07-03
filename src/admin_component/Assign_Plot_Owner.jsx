@@ -103,7 +103,7 @@ const Assign_Plot_Owner = () => {
         }
     };
 
-    const areUSureUpdate = (choose, rsv_plot, rsv_status, rsv_delete) => {
+    const areUSureUpdate = (choose, rsv_plot, rsv_status, rsv_delete, plot_id) => {
         if (choose === "button") {
 
             console.log("Received ID", idMainRef.current)
@@ -116,6 +116,7 @@ const Assign_Plot_Owner = () => {
             formdata.append("plot_no", rsv_plot);
             formdata.append("status_no", rsv_status);
             formdata.append("bool_delete", rsv_delete);
+            formdata.append("plot_id", plot_id);
 
             Axios({
                 method: "post",

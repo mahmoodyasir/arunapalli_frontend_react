@@ -15,7 +15,7 @@ const Plot_Status_Update = ({onDialog, plot_id, status_id, email}) => {
         const get_bool = async () => {
             await Axios({
                 method: "get",
-                url: `${domain}/api/payment_boolean/${email}/`,
+                url: `${domain}/api/payment_boolean/${email}/${plot_id}/`,
                 headers: admin_header
             }).then(response => {
 
@@ -118,11 +118,11 @@ const Plot_Status_Update = ({onDialog, plot_id, status_id, email}) => {
                 </div>
 
                 <div>
-                    <button onClick={() => onDialog("button", plot_no, mem_status, record_delete)}
+                    <button onClick={() => onDialog("button", plot_no, mem_status, record_delete, plot_id)}
                             className="btn btn-outline-info center-div mx-3">Update
                     </button>
                     <button className="btn btn-outline-success my-3 center-div mx-3"
-                            onClick={() => onDialog("button")}>Cancel
+                            onClick={() => onDialog(false)}>Cancel
                     </button>
 
                 </div>
