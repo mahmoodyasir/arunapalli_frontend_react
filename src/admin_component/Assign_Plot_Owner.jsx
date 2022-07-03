@@ -126,8 +126,8 @@ const Assign_Plot_Owner = () => {
             }).then(response => {
                 console.log(response.data)
                 dispatch({
-                    type: "ADMIN_PROFILE",
-                    admin_profile: response.data
+                    type: "PAGE_RELOAD",
+                    page_reload: response.data
                 })
                 if (response.data["message"] === "all_null") {
                     alert("Plot and Status both is Empty !!")
@@ -160,6 +160,7 @@ const Assign_Plot_Owner = () => {
             headers: admin_header,
             data: formdata
         }).then(response => {
+            alert(response.data["message"])
             dispatch({
                 type: "ADMIN_PROFILE",
                 admin_profile: response.data

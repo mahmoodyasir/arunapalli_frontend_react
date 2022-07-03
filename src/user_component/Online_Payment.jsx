@@ -34,43 +34,41 @@ const Online_Payment = () => {
 
 
     const option_work = async (id) => {
-        if (isNaN(id)) {
-            // console.log(email)
-            // console.log(id)
-            const formdata = new FormData()
-            formdata.append("owner_email", email);
-            formdata.append("plot_id", id);
+        // console.log(email)
+        // console.log(id)
+        const formdata = new FormData()
+        formdata.append("owner_email", email);
+        formdata.append("plot_id", id);
 
-            await Axios({
-                method: "post",
-                url: `${domain}/api/get_plot_owner/`,
-                headers: header,
-                data: formdata
-            }).then(response => {
-                console.log(response.data)
+        await Axios({
+            method: "post",
+            url: `${domain}/api/get_plot_owner/`,
+            headers: header,
+            data: formdata
+        }).then(response => {
+            console.log(response.data)
 
-                if (response.data[0]["member_status"]["title"] !== "None") {
+            if (response.data[0]["member_status"]["title"] !== "None") {
 
-                    if (plot_toogle === true) {
-                        setPlot_toogle(true)
-                    } else {
-                        setPlot_toogle(true)
-                    }
-
-                    setRoad_no(response.data[0]["road_no"])
-                    setMember_status(response.data[0]["member_status"]["title"])
-                    setPayment_amount(response.data[0]["member_status"]["payment_range"])
+                if (plot_toogle === true) {
+                    setPlot_toogle(true)
                 } else {
-                    alert("You are not a member of that Plot !!!!")
-                    setPlot_toogle(false)
-                    setPlot_no(null)
-                    setRoad_no(null)
-                    setPayment_amount(null)
-                    setMember_status(null)
+                    setPlot_toogle(true)
                 }
 
-            })
-        }
+                setRoad_no(response.data[0]["road_no"])
+                setMember_status(response.data[0]["member_status"]["title"])
+                setPayment_amount(response.data[0]["member_status"]["payment_range"])
+            } else {
+                alert("You are not a member of that Plot !!!!")
+                setPlot_toogle(false)
+                setPlot_no(null)
+                setRoad_no(null)
+                setPayment_amount(null)
+                setMember_status(null)
+            }
+
+        })
     }
 
     const make_payment = async () => {

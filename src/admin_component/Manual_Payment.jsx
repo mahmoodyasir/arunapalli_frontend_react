@@ -117,6 +117,11 @@ const Manual_Payment = () => {
                 console.log(response.data["message"])
             })
         }
+        else
+        {
+            setPlot_toogle(false)
+            alert("Member type 'None' detected !!")
+        }
 
     }
 
