@@ -36,6 +36,20 @@
     margin: auto;
 }
 
+.content-flow{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.grand{
+    padding: 10px;
+}
+
+.grand span{
+    font-weight: 700;
+    color: orangered;
+}
 /*table .sticky th {*/
 /*    position: sticky;*/
 /*    top: 0;*/

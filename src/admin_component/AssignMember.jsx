@@ -18,7 +18,13 @@ const AssignMember = () => {
     const [nid, setNid] = useState(null);
     const [phone, setPhone] = useState(null);
     const [member_status, setMember_status] = useState(null);
-    const [onetime_payment, setOnetime_payment] = useState(false);
+    const [onetime_payment, setOnetime_payment] = useState(true);
+    const [cheque_no, setCheque_no] = useState(null);
+    const [account_no, setAccount_no] = useState(null);
+    const [bank_name, setBank_name] = useState(null);
+    const [all_bank, setAll_bank] = useState(null);
+    const [amount, setAmount] = useState("");
+    const [toogle, setToogle] = useState(false);
 
     const [dialog, setDialog] = useState({
         message: "",
@@ -112,12 +118,28 @@ const AssignMember = () => {
         if (choose === "button") {
             console.log("Details", idMemberRef.current)
             handleDetails(false, "")
-        }
-        else
-        {
+        } else {
             handleDetails(false, "")
         }
     };
+
+
+    useEffect(() => {
+        const get_bank_and_amount = async () => {
+            await Axios({
+                method: "get",
+                url: `${domain}/api/bank_amount/`,
+                headers: admin_header
+            }).then(response => {
+                console.log(response.data["bank_name"])
+                console.log(response.data["onetime_amount"][0]["amount"])
+                setAll_bank(response.data["bank_name"])
+                setAmount(response.data["onetime_amount"][0]["amount"])
+            })
+        }
+        get_bank_and_amount()
+    }, []);
+
 
 
     const member_create = async () => {
@@ -128,6 +150,11 @@ const AssignMember = () => {
         formdata.append("member_nid", nid);
         formdata.append("member_phone", phone);
         formdata.append("onetime_payment", onetime_payment);
+
+        formdata.append("bank_name", bank_name);
+        formdata.append("cheque_no", cheque_no);
+        formdata.append("account_no", account_no);
+        formdata.append("amount", amount);
         console.log(member_status)
 
         await Axios({
@@ -194,13 +221,55 @@ const AssignMember = () => {
 
                     <div className="form-check my-3">
                         <label>Onetime Membership Payment: </label>
-                        <input onChange={() => setOnetime_payment(!onetime_payment)} type="checkbox"
+                        <input onChange={() => setToogle(!toogle)} type="checkbox"
                                className="form-check-input"/>
                     </div>
 
-                    <div className="my-2">
-                        <button onClick={member_create} className="btn btn-primary">Submit</button>
-                    </div>
+                    {
+                        toogle !== false &&
+                        <>
+                            <div>
+                                <label>Bank Name:</label>
+                                <select onChange={e => setBank_name(e.target.value)} className="form-control"
+                                       value={bank_name}>
+                                    <option>Select .......</option>
+                                    {
+                                        all_bank?.map((item, index) => {
+                                            return <option value={item?.name}
+                                                           key={index}>{item?.name}</option>
+                                        })
+                                    }
+                                </select>
+                            </div>
+
+                            <div className="form-group my-3">
+                                <label>Cheque No:</label>
+                                <input onChange={e => setCheque_no(e.target.value)} type="text" className="form-control"
+                                       placeholder="Write Bank Cheque Number"/>
+                            </div>
+
+                            <div className="form-group my-3">
+                                <label>Account No:</label>
+                                <input onChange={e => setAccount_no(e.target.value)} type="text"
+                                       className="form-control"
+                                       placeholder="Write Bank Account No"/>
+                            </div>
+
+                            <div className="form-group my-3">
+                                <label>Amount:</label>
+                                <input onChange={(e) => setAmount(e.target.value)} type="text"
+                                       className="form-control"
+                                       placeholder="Onetime Amount"
+                                       value={amount !== null && amount}
+                                       readOnly="readonly"/>
+                            </div>
+
+                            <div className="my-2">
+                                <button onClick={member_create} className="btn btn-primary">Submit</button>
+                            </div>
+                        </>
+                    }
+
 
                 </div>
 
@@ -235,7 +304,8 @@ const AssignMember = () => {
                                             <td>{item?.onetime_payment !== true ? "False" : "True"}</td>
                                             <td className="beside">
                                                 <button onClick={() => handleMember(item?.id)}
-                                                    className="btn btn-outline-primary">Details</button>
+                                                        className="btn btn-outline-primary">Details
+                                                </button>
 
                                                 <button onClick={() => handleDelete(item?.id, item?.email)}
                                                         className="btn btn-outline-danger mx-2">Delete

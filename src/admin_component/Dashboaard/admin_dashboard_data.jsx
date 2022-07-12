@@ -25,6 +25,11 @@ export const SidebarData = [
                 icon: <MdIcons.MdOutlinePayment/>
             },
             {
+                title: 'Due Payment List',
+                path: '/due_payment_list',
+                icon: <MdIcons.MdOutlinePayment/>
+            },
+            {
                 title: 'Manual Payment',
                 path: '/manual_payment',
                 icon: <IoIcons.IoIosPaper/>

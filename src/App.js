@@ -27,6 +27,7 @@ import Online_Payment from "./user_component/Online_Payment";
 import OwnershipHistory from "./admin_component/Dashboaard/OwnershipHistory";
 import RegisterAdmin from "./admin_component/RegisterAdmin";
 import Member_Status from "./admin_component/Member_Status";
+import Detailed_Payment_Status from "./admin_component/Detailed_Payment_Status";
 
 const App = () => {
 
@@ -264,6 +265,7 @@ const App = () => {
                                     <Route exact path="/owner_history" component={OwnershipHistory}/>
                                     <Route exact path="/register_admin" component={RegisterAdmin}/>
                                     <Route exact path="/member_status" component={Member_Status}/>
+                                    <Route exact path="/due_payment_list" component={Detailed_Payment_Status}/>
                                 </Switch>
                             </>
                         ) :
